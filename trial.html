@@ -14,10 +14,10 @@
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://app.meghops.com" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="MeghOps | Cloud Security Simplified" />
+    <meta property="og:title" content="MeghOps | Innovating Cyber Horizons" />
     <meta
       property="og:description"
-      content="Cloud Security Posture Management in 360 Degree."
+      content="Innovating Cyber Horizon Shaping the Future of Digital Security"
     />
     <meta
       property="og:image"
@@ -435,7 +435,7 @@
           <div class="rounded-2xl flex flex-col md:flex-row gap-x-6 gap-y-12 bg-[#170B12] py-6 px-3 sm:px-5 lg:p-8">
             <div class="md:w-1/2 w-full flex flex-col justify-between space-y-10">
               <div>
-                <h2 class="text-white font-semibold text-2xl mb-5 md:mt-10">Keep calm and stay cyber secure by MeghOps</h2>
+                <h2 class="text-white font-semibold text-2xl mb-5 md:mt-10">Join with us to achieve ultimate cyber safety</h2>
                 <p class="text-white mb-7 text-sm">
                   See how MeghOps Managed Security Services can help you:
                 </p>
@@ -477,6 +477,7 @@
             >
               <form 
                 action="#"
+                x-data="form"
               >
                 <h2 class="text-white text-lg font-semibold mb-6 text-center">Talk To Our Cyber Security Experts</h2>
                 <div class="mb-6">
@@ -484,6 +485,7 @@
                     type="text"
                     name="name"
                     placeholder="Name"
+                    x-model="data.name"
                     class="text-white w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                   >
                 </div>
@@ -492,6 +494,7 @@
                     <input
                       type="text"
                       name="companyName"
+                      x-model="data.companyName"
                       placeholder="Company name"
                       class="text-white w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                     >
@@ -500,6 +503,7 @@
                     <input
                       type="text"
                       name="jobTitle"
+                      x-model="data.jobTitle"
                       placeholder="Job Title"
                       class="text-white w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                     >
@@ -509,6 +513,7 @@
                   <input
                     type="email"
                     name="email"
+                    x-model="data.email"
                     placeholder="Email"
                     class="text-white w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                   >
@@ -517,6 +522,7 @@
                   <input
                     type="text"
                     name="phone"
+                    x-model="data.phone"
                     placeholder="Phone Number"
                     class="text-white w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                   >
@@ -528,8 +534,16 @@
                     async fetchCountries() {
                       const response = await fetch('https://restcountries.com/v3.1/all?fields=name');
                       const data = await response.json();
-                      this.countries = data;
-                      console.log(data);
+                      let sortedData = data.sort(function (a, b) {
+                        if (a.name.common < b.name.common) {
+                          return -1;
+                        }
+                        if (a.name.common > b.name.common) {
+                          return 1;
+                        }
+                        return 0;
+                      });
+                      this.countries = sortedData;
                     }
                   }"
                   x-init="fetchCountries()"
@@ -538,6 +552,7 @@
                   <select
                     type="text"
                     name="country"
+                    x-model="data.country"
                     placeholder="Select"
                     class="text-white focus:bg-dark bg-transparent w-full rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white""
                   >
@@ -554,7 +569,8 @@
                   <textarea
                     type="text"
                     name="text"
-                    placeholder="write here"
+                    x-model="data.text"
+                    placeholder="write here."
                     rows="6"
                     class="text-white w-full resize-none rounded-md border-white/20 focus:ring-primary focus:border-primary focus:ring-opacity-20 placeholder:text-white" style="background: linear-gradient(251.06deg, rgba(255, 255, 255, 0.1) -0.58%, rgba(255, 255, 255, 0.08) 93.77%);"
                   ></textarea>
@@ -565,7 +581,7 @@
                       MeghOps may contact me with information about Meghops products, services and events. I understand that I can opt-out at any time in the <a href="" class="underline">subscription center</a>.
                     </p>
                   </label>
-                <button type="submit" id="submitTrail" class="primary-button mt-5 w-full">
+                <button type="submit" @click.prevent="submit()" id="submitTrail" class="primary-button mt-5 w-full">
                   <span class="px-6 py-3 inline-flex items-center space-x-2">
                     <span>Submit your request</span>
                   </span>
@@ -807,33 +823,33 @@
 
     <img src="https://ct.capterra.com/capterra_tracker.gif?vid=2229543&vkey=1818ec949afdd89046c81aa1abc85294" />
 
-   <script type="text/javascript">
-              // Replace the text on the right hand side of the '=' with the id of your button.
-              // Make sure you do not remove the single quotes.
-              var buttonId = 'submitFormButton'; // Change this
-              // DO NOT CHANGE THE CODE BELOW
-              function trackingListener(e) {
-                e.preventDefault()
-                var capterra_vkey = '1818ec949afdd89046c81aa1abc85294',
-                capterra_vid = '2229543',
-                ct = document.createElement('img');
-                ct.src = 'https://ct.capterra.com/capterra_tracker.gif?vid='
-                  + capterra_vid + '&vkey=' + capterra_vkey;
-                document.body.appendChild(ct);
-              };
-              var button = document.getElementById(buttonId);
-              button.addEventListener(
-                'click',
-                trackingListener
-              );
 
 
-              
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script type="text/javascript">
+
+            document.addEventListener('alpine:init', () => {
+                    Alpine.data('form', () => ({
+                        apiUrl: 'https://app.meghops.com/v2/api/meghops/send-mail/get-demo',
+                        error: false,
+                        data: {
+                          "name": "",
+                          "companyName": "",
+                          "jobTitle": "",
+                          "phone": "",
+                          "email": "",
+                          "country": "",
+                          "text": ""
+                        },
+            
+                        async submit() {
+                            let res = await axios.post(this.apiUrl, this.data)
+                        }
+                    }))
+                })
             </script>
-
-
-
-
 
   </body>
 </html>
