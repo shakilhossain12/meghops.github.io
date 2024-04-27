@@ -480,6 +480,8 @@
                 x-data="form"
               >
                 <h2 class="text-white text-lg font-semibold mb-6 text-center">Talk To Our Cyber Security Experts</h2>
+
+                <p class="text-red-500 font-semibold mb-6 text-sm" x-show="error">All fields are required</p>
                 <div class="mb-6">
                   <input
                     type="text"
@@ -551,6 +553,7 @@
                   <label for="country" class="mb-3 block text-white text-lg">Country</label>
                   <select
                     type="text"
+                    required
                     name="country"
                     x-model="data.country"
                     placeholder="Select"
@@ -567,6 +570,7 @@
                     What are you hoping to <br> accomplish with MeghOps?
                   </label>
                   <textarea
+                    required
                     type="text"
                     name="text"
                     x-model="data.text"
@@ -846,8 +850,13 @@
             
                         async submit() {
 
+                          if (!this.data.companyName || !this.data.name || !this.data.jobTitle || !this.data.phone || !this.data.country || !this.data.text) {
+                            this.error = true
+                            return
+                          }
 
                             let res = await axios.post(this.apiUrl, this.data)
+                            alert('success')
                         }
                     }))
                 })
